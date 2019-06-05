@@ -447,7 +447,11 @@ class ZyxelNAS():
                 self.base_url,
                 api,
                 function)
-            self._utilisation.update(json.loads(self._get_url(url)))
+            response = self._get_url(url)
+            if not isinstance(response, str):
+                self._utilisation.update(response)
+            else:
+                self._utilisation.update(json.loads(response))
         if self._storage is not None:
             api = "storage_cgi"
             function = "CGIGetAllStorageInfo"
@@ -455,7 +459,11 @@ class ZyxelNAS():
                 self.base_url,
                 api,
                 function)
-            self._storage.update(json.loads(self._get_url(url)))
+            response = self._get_url(url)
+            if not isinstance(response, str):
+                self._utilisation.update(response)
+            else:
+                self._storage.update(json.loads(response))
 
     @property
     def utilisation(self):
