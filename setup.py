@@ -10,15 +10,18 @@ import io
 from setuptools import setup
 
 setup(
-  name = 'python-synology',
-  packages = ['SynologyDSM'], # this must be the same as the name above
-  version = '0.2.0',
-  description = 'Python API for communication with Synology DSM',
-  author = 'FG van Zeelst (StaticCube)',
-  author_email = 'GitHub@StaticCube.com',
-  url = 'https://github.com/StaticCube/python-synology/',
-  download_url = 'https://github.com/StaticCube/python-synology/tarball/0.2.0',
-  keywords = ['synology-dsm', 'synology'],
+  name = 'python-zyxelnas',
+  packages = ['ZyxelNAS'], # this must be the same as the name above
+  version = '0.0.1',
+  description = 'Python API for communication with Zyxel NAS',
+  author = 'FG van Zeelst (StaticCube), Oskar Joelsson (orrpan)',
+  author_email = '',
+  url = 'https://github.com/orrpan/python-zyxelnas',
+  download_url = 'https://github.com/orrpan/python-zyxelnas',
+  keywords = ['zyxelnas', 'zyxel'],
   classifiers = [],
-  install_requires=['requests>=1.0.0']
+  install_requires=[
+    'requests>=1.0.0'
+    'wakeonlan>=1.1.6'
+    ]
 )
