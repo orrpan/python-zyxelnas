@@ -22,7 +22,7 @@ You can import the module as `ZyxelNAS`.
 from ZyxelNAS import ZyxelNAS
 
 print("Creating Valid API")
-api = ZyxelNAS("192.168.1.10", "443", "admin", "superpassword", True)
+api = ZyxelNAS("192.168.1.10", "443", "admin", "superpassword", timeout=10, use_https=True, debugmode=False)
 
 
 print("=== Utilisation ===")
