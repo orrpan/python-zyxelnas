@@ -290,23 +290,17 @@ class ZyxelNAS():
     """Class containing the main Zyxel NAS functions"""
 
     def __init__(self, zyxel_ip, zyxel_port, username, password,
-                 use_https=False, debugmode=False):
+                 timeout=10, use_https=False, debugmode=False):
         # Store Variables
         self.username = username
         self.password = password
+        self.timeout = timeout
         self.auth = {
             'username': username,
             'password': password,
         }
         self.whoami = {
             'whoami': username
-        }
-        self.headers = {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Accept-Language': 'en-US;q=0.8,en;q=0.7',
-            'X-Requested-With': 'XMLHttpRequest',
-            'Connection': 'keep-alive'
         }
         self.default_params = (
             ('page', '1'),
@@ -397,12 +391,12 @@ class ZyxelNAS():
 
         try:
             if data is not None:
-                resp = self._session.post(
-                    request_url, headers=self.headers, data=data, verify=False)
+                resp = self._session.post(request_url, timeout=self.timeout,
+                                          data=data, verify=False)
             else:
-                resp = self._session.get(
-                    request_url, headers=self.headers,
-                    params=self.default_params, verify=False)
+                resp = self._session.get(request_url, timeout=self.timeout,
+                                         verify=False,
+                                         params=self.default_params)
             self._debuglog("Request executed: " + str(resp.status_code))
             self._debuglog("Contentet type: " + str(resp.headers))
 
@@ -428,8 +422,8 @@ class ZyxelNAS():
                                                self.password)
                         self._session_error = True
                 else:
-                    self._debuglog("Session error, \
-                                   possible session or timeout")
+                    self._debuglog("Session error, " +
+                                   "possible session or timeout")
                     self._session_error = True
             else:
                 # We got a 404 or 401
